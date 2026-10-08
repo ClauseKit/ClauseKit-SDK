@@ -22,6 +22,8 @@
     "build:esm": "tsc -p tsconfig.esm.json",
     "build:cjs": "tsc -p tsconfig.cjs.json && node -e \"require('node:fs').writeFileSync('dist/cjs/package.json', '{\\\"type\\\":\\\"commonjs\\\"}\\\\n')\"",
     "build": "npm run clean && npm run build:esm && npm run build:cjs",
+    "test:spec": "npm run build && node dist/cjs/examples/spec-validation.js",
+    "test": "npm run test:spec",
     "test-run": "npm run build && node dist/cjs/examples/test-run.js"
   },
   "dependencies": {
@@ -29,6 +31,8 @@
   },
   "devDependencies": {
     "@types/node": "^22.10.1",
+    "ajv": "^8.20.0",
+    "ajv-formats": "^3.0.1",
     "typescript": "^5.7.2"
   }
 }

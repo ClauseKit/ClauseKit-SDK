@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://clausekit.com/spec/ledger-entry.schema.json",
+  "title": "ClauseKit Ledger Entry Ingest Payload",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "client_id",
+    "sha256_hash",
+    "model",
+    "timestamp",
+    "compliance_version"
+  ],
+  "properties": {
+    "client_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "SDK client identifier provided via wrapOpenAI({ clientId })."
+    },
+    "sha256_hash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$",
+      "description": "Lowercase hexadecimal SHA-256 digest of NFC-normalized output text bytes."
+    },
+    "model": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Model name from API response, or unknown_model fallback."
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "UTC timestamp produced by Date.toISOString()."
+    },
+    "compliance_version": {
+      "type": "string",
+      "minLength": 1,
+      "description": "SDK compliance contract version string sent to the ledger endpoint."
+    }
+  }
+}
