@@ -68,7 +68,8 @@ export function wrapOpenAI<T extends Record<string, any>>(
   const wrappedCreate = async (...args: unknown[]) => {
     const response = await originalCreate(...args);
     const outputText = extractOutputText(response);
-    const sha256Hash = createHash('sha256').update(outputText, 'utf8').digest('hex');
+    const normalizedOutputText = outputText.normalize('NFC');
+    const sha256Hash = createHash('sha256').update(normalizedOutputText, 'utf8').digest('hex');
     const verificationId = `ck_live_${randomUUID().replaceAll('-', '').slice(0, 24)}`;
     const timestamp = (options.now?.() ?? new Date()).toISOString();
 
